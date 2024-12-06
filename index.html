@@ -4,39 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compara 2</title>
+    
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
         }
         div {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 1rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         button {
-            padding: 1rem;
+            padding: 1rem 2rem;
             font-size: 1.5rem;
-            border: 1px solid black;
+            border: none;
             border-radius: 0.5rem;
-            background-color: white;
+            background-color: #ff7e5f;
+            color: white;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         button:hover {
-            background-color: lightgray;
+            background-color: #feb47b;
         }
         ul {
             list-style-type: none;
             padding: 0;
             margin: 0;
+            width: 100%;
         }
         li {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
+            background: #ff7e5f;
+            color: white;
+            padding: 0.5rem;
+            margin: 0.2rem 0;
+            border-radius: 0.3rem;
+            text-align: center;
+        }
+        h2 {
+            margin: 0;
+            color: #ff7e5f;
         }
     </style>
 </head>
@@ -100,6 +119,7 @@
             "Antuerpia",
             "Bruges",
             "Bruxelas",
+            "Gent",
             "Luxemburgo",
             "Metz",
             "Freiburg",
@@ -128,7 +148,7 @@
         const cidades = [];
         // Zera cidades
         function zeraCidades() {
-            cidades.push(...cidadesOriginais)
+            cidades.push(...cidadesOriginais.sort(() => Math.random() - 0.5))
             // Pegue as 2 primeiras cidades
             const cidade1 = cidades.shift()
             const cidade2 = cidades.shift()
