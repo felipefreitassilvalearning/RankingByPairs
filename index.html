@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compara 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        button {
+            padding: 1rem;
+            font-size: 1.5rem;
+            border: 1px solid black;
+            border-radius: 0.5rem;
+            background-color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: lightgray;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mostre 2 cards, cada um é um botão e altera a variavel melhor cidade -->
+    <div>
+        <button onclick="escolhaCidade()" id="cidade1"></button>
+        <button onclick="escolhaCidade()" id="cidade2"></button>
+        <!-- Mostrar Ranking final -->
+        <button onclick="mostrarRanking()">
+            Mostrar Ranking
+        </button>
+        <ul id="ranking">
+        </ul>
+    </div>
+    <script>
+        const ranking = [];
+        // Crie uma variável melhorCidade
+        let melhorCidade;
+        const cardCidade1 = document.getElementById("cidade1")
+        const cardCidade2 = document.getElementById("cidade2")
+        // Gere 50 cidades europeias
+        const cidadesOriginais = [
+            "Amsterdam",
+            "Wassenaar",
+            "Haia",
+            "Londres",
+            "Paris",
+            "Versalhes",
+            "Roma",
+            "Vaticano",
+            "Praga",
+            "Helsinki",
+            "Tallinn",
+            "Riga",
+            "Vilnius",
+            "Varsovia",
+            "Auschwitz",
+            "Cracovia",
+            "Breclav",
+            "Bratislava",
+            "Viena",
+            "Budapeste",
+            "Belgrado",
+            "Sofia",
+            "Bucareste",
+            "Brasov",
+            "Bran",
+            "Zaanse Schans",
+            "Chisinau",
+            "Mallorca",
+            "Ibiza",
+            "Zagreb",
+            "Ljubljana",
+            "Bled",
+            "Salzburgo",
+            "Berlim",
+            "Copenhagen",
+            "Estocolmo",
+            "Oslo",
+            "Antuerpia",
+            "Bruges",
+            "Bruxelas",
+            "Luxemburgo",
+            "Metz",
+            "Freiburg",
+            "Denzlingen",
+            "Vaduz",
+            "Zurique",
+            "Berna",
+            "Genebra",
+            "Montreux",
+            "Rolle",
+            "Milao",
+            "Sta Margharita",
+            "Nice",
+            "Monaco",
+            "Cannes",
+            "Lauterbrunnen",
+            "Lyon",
+            "Barcelona",
+            "Sevilla",
+            "Lagos",
+            "Lisboa",
+            "Edimburgo",
+            "Cardiff",
+            "Dublin"
+        ]
+        const cidades = [];
+        // Zera cidades
+        function zeraCidades() {
+            cidades.push(...cidadesOriginais)
+            // Pegue as 2 primeiras cidades
+            const cidade1 = cidades.shift()
+            const cidade2 = cidades.shift()
+            // O card/botão deve mostrar o nome da cidade
+            cardCidade1.innerText = cidade1
+            cardCidade2.innerText = cidade2
+            if (cidade1 === undefined) {
+                cardCidade1.style.display = "none"
+            }
+            if (cidade2 === undefined) {
+                cardCidade2.style.display = "none"
+            }
+            if (cidadesOriginais.length === 0) {
+                mostrarRanking()
+            }
+        }
+        zeraCidades()
+        // Cada vez que um botão é clicado, escolha a próxima cidade como opção 2 e a melhor fica como opção 1
+        function escolhaCidade() {
+            // Pega id de quem chamou a função
+            const cidade = event.target.innerText;
+            melhorCidade = cidade;
+            if (cidades.length === 0) {
+                alert("Você escolheu todas as cidades!")
+                ranking.push(melhorCidade)
+                // Remove melhorCidade do array de cidadesOriginais
+                cidadesOriginais.splice(cidadesOriginais.indexOf(melhorCidade), 1)
+                // Copia o array de cidadesOriginais para o array de cidades
+                cidades.push(...cidadesOriginais)
+                zeraCidades()
+                if (cidadesOriginais.length === 0) {
+                    mostrarRanking()
+                }
+                return
+            }
+            // Pega a melhor cidade e põe no primeiro card
+            cardCidade1.innerText = melhorCidade
+            // Pega a próxima cidade do array de cidades restantes e põe no segundo card
+            cardCidade2.innerText = cidades.shift()
+        }
+        // Mostre o ranking final
+        function mostrarRanking() {
+            const rankingElement = document.getElementById("ranking")
+            rankingElement.innerHTML = ""
+            // Add h2 com o texto "Ranking Final"
+            const h2 = document.createElement("h2")
+            h2.innerText = "Ranking Final"
+            rankingElement.appendChild(h2)
+            ranking.forEach((cidade, index) => {
+                const li = document.createElement("li")
+                li.innerText = `${index + 1}º lugar: ${cidade}`
+                rankingElement.appendChild(li)
+            })
+        }
+    </script>
+</body>
+</html>
